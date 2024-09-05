@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Contract.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">HW7</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">Contract.java</span></div><h1>Contract.java</h1><pre class="source lang-java linenums">import java.util.Objects;
+
+/**
+ * Abstract class representing a contract.
+ *
+ * @author Qiyuan Zhu
+ */
+public abstract class Contract {
+
+  protected static final double MIN_PRICE = 0.0;
+
+  private double askingPrice;
+  private boolean negotiable;
+
+  /**
+   * Constructs a Contract with the specified asking price and negotiable status.
+   *
+   * @param askingPrice the asking price of the contract, must be non-negative.
+   * @param negotiable  whether the price is negotiable.
+   */
+<span class="fc" id="L21">  public Contract(double askingPrice, boolean negotiable) {</span>
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">    if (askingPrice &lt; MIN_PRICE) {</span>
+<span class="nc" id="L23">      throw new IllegalArgumentException(&quot;Asking price cannot be negative.&quot;);</span>
+    }
+<span class="fc" id="L25">    this.askingPrice = askingPrice;</span>
+<span class="fc" id="L26">    this.negotiable = negotiable;</span>
+<span class="fc" id="L27">  }</span>
+
+  /**
+   * Gets the asking price of the contract.
+   *
+   * @return the asking price.
+   */
+  public double getAskingPrice() {
+<span class="fc" id="L35">    return askingPrice;</span>
+  }
+
+  /**
+   * Sets the asking price of the contract.
+   *
+   * @param askingPrice the new asking price, must be non-negative.
+   */
+  public void setAskingPrice(double askingPrice) {
+<span class="fc bfc" id="L44" title="All 2 branches covered.">    if (askingPrice &lt; MIN_PRICE) {</span>
+<span class="fc" id="L45">      throw new IllegalArgumentException(&quot;Asking price cannot be negative.&quot;);</span>
+    }
+<span class="fc" id="L47">    this.askingPrice = askingPrice;</span>
+<span class="fc" id="L48">  }</span>
+
+  /**
+   * Checks if the price is negotiable.
+   *
+   * @return true if the price is negotiable, false otherwise.
+   */
+  public boolean isNegotiable() {
+<span class="fc" id="L56">    return negotiable;</span>
+  }
+
+  /**
+   * Sets whether the price is negotiable.
+   *
+   * @param negotiable the new negotiable status.
+   */
+  public void setNegotiable(boolean negotiable) {
+<span class="fc" id="L65">    this.negotiable = negotiable;</span>
+<span class="fc" id="L66">  }</span>
+
+  /**
+   * Calculates the commission based on the type of contract and the agent's commission rate.
+   *
+   * @param commissionRate The commission rate of the agent.
+   * @return The commission earned from the contract.
+   */
+  public abstract double calculateCommission(double commissionRate);
+
+  @Override
+  public boolean equals(Object o) {
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">    if (this == o) {</span>
+<span class="nc" id="L79">      return true;</span>
+    }
+<span class="pc bpc" id="L81" title="2 of 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="nc" id="L82">      return false;</span>
+    }
+<span class="fc" id="L84">    Contract contract = (Contract) o;</span>
+<span class="pc bpc" id="L85" title="1 of 4 branches missed.">    return Double.compare(askingPrice, contract.askingPrice) == 0</span>
+        &amp;&amp; negotiable == contract.negotiable;
+  }
+
+  @Override
+  public int hashCode() {
+<span class="fc" id="L91">    return Objects.hash(askingPrice, negotiable);</span>
+  }
+
+  @Override
+  public String toString() {
+<span class="nc" id="L96">    return &quot;Contract{&quot; +</span>
+        &quot;askingPrice=&quot; + askingPrice +
+        &quot;, negotiable=&quot; + negotiable +
+        '}';
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Sale.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">HW7</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">Sale.java</span></div><h1>Sale.java</h1><pre class="source lang-java linenums">import java.util.Objects;
+
+/**
+ * Class representing a sale contract.
+ */
+public class Sale extends Contract {
+
+  /**
+   * Constructs a Sale contract with the specified asking price and negotiable status.
+   *
+   * @param askingPrice the asking price of the sale contract, must be non-negative.
+   * @param negotiable  whether the price is negotiable.
+   */
+  public Sale(double askingPrice, boolean negotiable) {
+<span class="fc" id="L15">    super(askingPrice, negotiable);</span>
+<span class="fc" id="L16">  }</span>
+
+  @Override
+  public String toString() {
+<span class="fc" id="L20">    return &quot;Sale{&quot; +</span>
+<span class="fc" id="L21">        &quot;askingPrice=&quot; + getAskingPrice() +</span>
+<span class="fc" id="L22">        &quot;, negotiable=&quot; + isNegotiable() +</span>
+        '}';
+  }
+
+  @Override
+  public double calculateCommission(double commissionRate) {
+<span class="fc" id="L28">    return commissionRate * getAskingPrice();</span>
+  }
+
+  @Override
+  public boolean equals(Object o) {
+<span class="pc bpc" id="L33" title="1 of 2 branches missed.">    if (this == o) {</span>
+<span class="nc" id="L34">      return true;</span>
+    }
+<span class="pc bpc" id="L36" title="2 of 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="nc" id="L37">      return false;</span>
+    }
+<span class="fc bfc" id="L39" title="All 2 branches covered.">    if (!super.equals(o)) {</span>
+<span class="fc" id="L40">      return false;</span>
+    }
+<span class="fc" id="L42">    return true;</span>
+  }
+
+  @Override
+  public int hashCode() {
+<span class="fc" id="L47">    return Objects.hash(super.hashCode());</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

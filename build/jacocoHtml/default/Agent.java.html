@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Agent.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">HW7</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">Agent.java</span></div><h1>Agent.java</h1><pre class="source lang-java linenums">import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+/**
+ * @author Yitian Xu
+ * This class represents an agent.
+ * @param &lt;P&gt;
+ * @param &lt;C&gt;
+ */
+public class Agent&lt;P, C&gt; {
+  private String name;
+  private List&lt;Listing&lt;P, C&gt;&gt; listings;
+  private double commissionRate;
+  private double totalEarnings;
+<span class="nc" id="L16">  private static final Double LOWER_BOUND_FOR_COMMISSION_RATE = 0.0;</span>
+<span class="nc" id="L17">  private static final Double HIGHER_BOUND_FOR_COMMISSION_RATE = 1.0;</span>
+  /**
+ * Constructs a new Agent object with the given parameters.
+ *
+ * @param commissionRate The commission rate for the agent, which must be between 0 and 1 (inclusive).
+ * @param listings The list of listings associated with the agent.
+ * @param name The name of the agent.
+ * @param totalEarnings The total earnings of the agent. Must be a non-negative value.
+ * @throws IllegalArgumentException If the commission rate is not within the valid range or if total earnings is negative.
+ */
+public Agent(double commissionRate, List&lt;Listing&lt;P, C&gt;&gt; listings, String name,
+<span class="nc" id="L28">      double totalEarnings) throws IllegalArgumentException{</span>
+<span class="nc bnc" id="L29" title="All 4 branches missed.">    if (commissionRate &lt; LOWER_BOUND_FOR_COMMISSION_RATE || commissionRate &gt; HIGHER_BOUND_FOR_COMMISSION_RATE) {</span>
+<span class="nc" id="L30">      throw new IllegalArgumentException(&quot;Commission rate must be between 0 and 1.&quot;);</span>
+    }
+<span class="nc bnc" id="L32" title="All 2 branches missed.">    if (totalEarnings &lt; 0) throw new IllegalArgumentException(&quot;Total Earnings must be be larger than zero.&quot;);</span>
+<span class="nc" id="L33">    this.commissionRate = commissionRate;</span>
+<span class="nc" id="L34">    this.listings = listings;</span>
+<span class="nc" id="L35">    this.name = name;</span>
+<span class="nc" id="L36">    this.totalEarnings = totalEarnings;</span>
+<span class="nc" id="L37">  }</span>
+
+  /**
+   * Add a listing to the list of listings
+   * @param listing
+   */
+  void addListing(Listing&lt;P, C&gt; listing) {
+<span class="nc" id="L44">    listings.add(listing);</span>
+<span class="nc" id="L45">  }</span>
+
+
+  /**
+ * Completes a listing by calculating the commission earned and adding it to the total earnings.
+ *
+ * @param listing The listing to be completed. It must be associated with the agent.
+ * @throws ListingNotFoundException If the listing is not found in the agent's collection.
+ */
+public void completeListing(Listing&lt;P, C&gt; listing) throws ListingNotFoundException {
+<span class="nc" id="L55">    Double add = singleListValueCalculator(listing);</span>
+<span class="nc" id="L56">    this.setTotalEarnings(this.getTotalEarnings() + add);</span>
+<span class="nc" id="L57">}</span>
+
+  /**
+ * Removes a listing from the agent's collection of listings.
+ *
+ * @param listing The listing to be removed. It must be associated with the agent.
+ * @throws ListingNotFoundException If the listing is not found in the agent's collection.
+ */
+public void dropListing(Listing&lt;P, C&gt; listing) throws ListingNotFoundException {
+<span class="nc bnc" id="L66" title="All 2 branches missed.">    if (!listings.remove(listing)) {</span>
+<span class="nc" id="L67">      throw new ListingNotFoundException(&quot;Listing not found in agent's collection.&quot;);</span>
+    }
+<span class="nc" id="L69">}</span>
+
+  /**
+ * Calculates the total value of all listings associated with the agent.
+ * The total value is calculated by summing the individual values of each listing,
+ * which are determined by the {@link #singleListValueCalculator(Listing)}.
+ *
+ * @return The total value of all listings associated with the agent.
+ * @throws ListingNotFoundException If a listing associated with the agent is not found.
+ */
+public double getTotalPortfolioValue() throws ListingNotFoundException {
+<span class="nc" id="L80">    double totalValue = this.getTotalEarnings();</span>
+<span class="nc" id="L81">    int sz = this.getListings().size();</span>
+<span class="nc bnc" id="L82" title="All 2 branches missed.">    for(int i = 0; i &lt; sz; i++) {</span>
+<span class="nc" id="L83">      totalValue += singleListValueCalculator(this.getListings().get(i));</span>
+    }
+<span class="nc" id="L85">    return totalValue;</span>
+}
+
+/**
+ * Calculates the commission earned from a single listing based on the type of contract and the agent's commission rate.
+ *
+ * @param listing The listing for which the commission is to be calculated. It must be associated with the agent.
+ * @return The commission earned from the given listing.
+ * @throws ListingNotFoundException If the listing is not found in the agent's collection.
+ */
+public double singleListValueCalculator(Listing&lt;P, C&gt; listing) throws ListingNotFoundException {
+<span class="nc" id="L96">    int sum = 0;</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">    if (!listings.remove(listing)) {</span>
+<span class="nc" id="L98">      throw new ListingNotFoundException(&quot;Listing not found in agent's collection.&quot;);</span>
+    }
+<span class="nc bnc" id="L100" title="All 2 branches missed.">    if (listing.getContract() instanceof Sale) {</span>
+<span class="nc" id="L101">      Sale saleContract = (Sale) listing.getContract();</span>
+<span class="nc" id="L102">      sum += commissionRate * saleContract.getAskingPrice();</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">    } else if (listing.getContract() instanceof Rental) {</span>
+<span class="nc" id="L104">      Rental rentalContract = (Rental) listing.getContract();</span>
+<span class="nc" id="L105">      sum += commissionRate * rentalContract.getAskingPrice() * rentalContract.getTerm();</span>
+    }
+<span class="nc" id="L107">    return sum;</span>
+  }
+
+  /**
+   * Calculates the commission rate
+   * @return
+   */
+  public double getCommissionRate() {
+<span class="nc" id="L115">    return commissionRate;</span>
+  }
+
+  /**
+   * set the commission rate
+   * @param commissionRate
+   */
+  public void setCommissionRate(double commissionRate) {
+<span class="nc" id="L123">    this.commissionRate = commissionRate;</span>
+<span class="nc" id="L124">  }</span>
+
+  /**
+   * get the listings
+   * @return
+   */
+  public List&lt;Listing&lt;P, C&gt;&gt; getListings() {
+<span class="nc" id="L131">    return listings;</span>
+  }
+
+  /**
+   * set the listings
+   * @param listings
+   */
+  public void setListings(List&lt;Listing&lt;P, C&gt;&gt; listings) {
+<span class="nc" id="L139">    this.listings = listings;</span>
+<span class="nc" id="L140">  }</span>
+
+  /**
+   * get the name of agent
+   * @return
+   */
+  public String getName() {
+<span class="nc" id="L147">    return name;</span>
+  }
+
+  /**
+   * set the name of agent
+   * @param name
+   */
+  public void setName(String name) {
+<span class="nc" id="L155">    this.name = name;</span>
+<span class="nc" id="L156">  }</span>
+
+  /**
+   * get the total earning of agent
+   * @return
+   */
+  public double getTotalEarnings() {
+<span class="nc" id="L163">    return totalEarnings;</span>
+  }
+
+  /**
+   * set the total earning of agent
+   * @param totalEarnings
+   */
+  public void setTotalEarnings(double totalEarnings) {
+<span class="nc" id="L171">    this.totalEarnings = totalEarnings;</span>
+<span class="nc" id="L172">  }</span>
+
+  /**
+   * Equals method
+   * @param o
+   * @return
+   */
+  @Override
+  public boolean equals(Object o) {
+<span class="nc bnc" id="L181" title="All 2 branches missed.">    if (this == o) {</span>
+<span class="nc" id="L182">      return true;</span>
+    }
+<span class="nc bnc" id="L184" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="nc" id="L185">      return false;</span>
+    }
+<span class="nc" id="L187">    Agent&lt;?, ?&gt; agent = (Agent&lt;?, ?&gt;) o;</span>
+<span class="nc bnc" id="L188" title="All 2 branches missed.">    return Double.compare(commissionRate, agent.commissionRate) == 0</span>
+<span class="nc bnc" id="L189" title="All 2 branches missed.">        &amp;&amp; Double.compare(totalEarnings, agent.totalEarnings) == 0</span>
+<span class="nc bnc" id="L190" title="All 4 branches missed.">        &amp;&amp; Objects.equals(name, agent.name) &amp;&amp; Objects.equals(listings,</span>
+        agent.listings);
+  }
+
+  /**
+   * Hashcode
+   * @return
+   */
+  @Override
+  public int hashCode() {
+<span class="nc" id="L200">    return Objects.hash(name, listings, commissionRate, totalEarnings);</span>
+  }
+
+  /**
+   * toString
+   * @return
+   */
+  @Override
+  public String toString() {
+<span class="nc" id="L209">    return &quot;Agent{&quot; +</span>
+        &quot;commissionRate=&quot; + commissionRate +
+        &quot;, name='&quot; + name + '\'' +
+        &quot;, listings=&quot; + listings +
+        &quot;, totalEarnings=&quot; + totalEarnings +
+        '}';
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

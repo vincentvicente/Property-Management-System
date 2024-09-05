@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Residential.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">HW7</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">Residential.java</span></div><h1>Residential.java</h1><pre class="source lang-java linenums">import java.util.Objects;
+
+/**
+ * This class represents a residential property.
+ *
+ * @author Shaohua Guo
+ */
+public class Residential extends Property {
+
+<span class="nc" id="L10">  private static final Integer MIN_NUM_BED = 0;</span>
+<span class="nc" id="L11">  private static final Double MIN_NUM_BATH = 0.0;</span>
+  private Integer numBedrooms;
+  private Double numBathrooms;
+
+  /**
+   * Constructor for residential properties.
+   *
+   * @param address      the address
+   * @param size         the size of the property
+   * @param numBedrooms  the number of bedrooms
+   * @param numBathrooms the number of bathrooms
+   * @throws IllegalArgumentException if the number of bedrooms and bathrooms is negative
+   */
+  public Residential(String address, Integer size, Integer numBedrooms, Double numBathrooms)
+      throws IllegalArgumentException {
+<span class="nc" id="L26">    super(address, size);</span>
+<span class="nc bnc" id="L27" title="All 4 branches missed.">    if (numBedrooms &lt; MIN_NUM_BED || numBathrooms &lt; MIN_NUM_BATH) {</span>
+<span class="nc" id="L28">      throw new IllegalArgumentException(&quot;Number of bedrooms and bathrooms must be non-negative.&quot;);</span>
+    }
+<span class="nc" id="L30">    this.numBedrooms = numBedrooms;</span>
+<span class="nc" id="L31">    this.numBathrooms = numBathrooms;</span>
+<span class="nc" id="L32">  }</span>
+
+  /**
+   * Getter for the number of bedrooms
+   *
+   * @return the number of bedrooms
+   */
+  public Integer getNumBedrooms() {
+<span class="nc" id="L40">    return numBedrooms;</span>
+  }
+
+  /**
+   * Getter for the number of bathrooms
+   *
+   * @return the number of bathrooms
+   */
+  public Double getNumBathrooms() {
+<span class="nc" id="L49">    return numBathrooms;</span>
+  }
+
+  @Override
+  public boolean equals(Object o) {
+<span class="nc bnc" id="L54" title="All 2 branches missed.">    if (this == o) {</span>
+<span class="nc" id="L55">      return true;</span>
+    }
+<span class="nc bnc" id="L57" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="nc" id="L58">      return false;</span>
+    }
+<span class="nc bnc" id="L60" title="All 2 branches missed.">    if (!super.equals(o)) {</span>
+<span class="nc" id="L61">      return false;</span>
+    }
+<span class="nc" id="L63">    Residential that = (Residential) o;</span>
+<span class="nc bnc" id="L64" title="All 4 branches missed.">    return Objects.equals(numBedrooms, that.numBedrooms) &amp;&amp; Objects.equals(</span>
+        numBathrooms, that.numBathrooms);
+  }
+
+  @Override
+  public int hashCode() {
+<span class="nc" id="L70">    return Objects.hash(super.hashCode(), numBedrooms, numBathrooms);</span>
+  }
+
+  @Override
+  public String toString() {
+<span class="nc" id="L75">    return &quot;Residential{&quot; +</span>
+        &quot;numBedrooms=&quot; + numBedrooms +
+        &quot;, numBathrooms=&quot; + numBathrooms +
+        '}';
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

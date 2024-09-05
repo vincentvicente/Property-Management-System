@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Property.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">HW7</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">Property.java</span></div><h1>Property.java</h1><pre class="source lang-java linenums">import java.util.Objects;
+
+/**
+ * This class represent a property.
+ *
+ * @author Shaohua Guo
+ */
+public abstract class Property {
+
+<span class="nc" id="L10">  private static final Integer MIN_SIZE = 0;</span>
+  protected String address;
+  protected Integer size;
+
+  /**
+   * Constructor for creating a property with given address and size.
+   *
+   * @param address The address of the property.
+   * @param size    The size of the property in square feet.
+   */
+<span class="nc" id="L20">  public Property(String address, Integer size) throws IllegalArgumentException {</span>
+<span class="nc bnc" id="L21" title="All 2 branches missed.">    if (size &lt; MIN_SIZE) {</span>
+<span class="nc" id="L22">      throw new IllegalArgumentException(&quot;Size must be at least &quot; + MIN_SIZE + &quot; square feet.&quot;);</span>
+    }
+<span class="nc" id="L24">    this.address = address;</span>
+<span class="nc" id="L25">    this.size = size;</span>
+<span class="nc" id="L26">  }</span>
+
+  /**
+   * Getter for the address.
+   *
+   * @return The address
+   */
+  public String getAddress() {
+<span class="nc" id="L34">    return address;</span>
+  }
+
+  /**
+   * Getter for the size.
+   *
+   * @return The size
+   */
+  public Integer getSize() {
+<span class="nc" id="L43">    return size;</span>
+  }
+
+  @Override
+  public boolean equals(Object o) {
+<span class="nc bnc" id="L48" title="All 2 branches missed.">    if (this == o) {</span>
+<span class="nc" id="L49">      return true;</span>
+    }
+<span class="nc bnc" id="L51" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="nc" id="L52">      return false;</span>
+    }
+<span class="nc" id="L54">    Property property = (Property) o;</span>
+<span class="nc bnc" id="L55" title="All 4 branches missed.">    return Objects.equals(address, property.address) &amp;&amp; Objects.equals(size,</span>
+        property.size);
+  }
+
+  @Override
+  public int hashCode() {
+<span class="nc" id="L61">    return Objects.hash(address, size);</span>
+  }
+
+  @Override
+  public String toString() {
+<span class="nc" id="L66">    return &quot;Property{&quot; +</span>
+        &quot;address='&quot; + address + '\'' +
+        &quot;, size=&quot; + size +
+        '}';
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

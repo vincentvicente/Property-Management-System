@@ -1,4 +1,4 @@
-# Property Management System![img_1.png](img_1.png)[img.png](img.png)
+# Property Management System![img_1.png](img_1.png)
 
 ## Overview
 This system is part of the backend for a property company website, similar to Redfin or Zillow. It manages various properties (residential and commercial), contracts (sales and rentals), listings, and real estate agents.

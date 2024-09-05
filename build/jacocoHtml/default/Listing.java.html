@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Listing.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">HW7</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">Listing.java</span></div><h1>Listing.java</h1><pre class="source lang-java linenums">import java.util.Objects;
+
+/**
+ * Represents a listing in a property management system.
+ * A listing consists of a contract and a property.
+ */
+public class Listing&lt;P, C&gt; {
+  private P property;
+  private C contract;
+
+  /**
+   * Constructs a new Listing object with the given contract and property.
+   *
+   * @param contract The contract associated with the listing.
+   * @param property The property associated with the listing.
+   */
+<span class="nc" id="L17">  public Listing(P property, C contract) {</span>
+<span class="nc" id="L18">    this.contract = contract;</span>
+<span class="nc" id="L19">    this.property = property;</span>
+<span class="nc" id="L20">  }</span>
+
+  /**
+   * Returns the contract associated with the listing.
+   *
+   * @return The contract associated with the listing.
+   */
+  public C getContract() {
+<span class="nc" id="L28">    return contract;</span>
+  }
+
+  /**
+   * Sets the contract associated with the listing.
+   *
+   * @param contract The contract to be associated with the listing.
+   */
+  public void setContract(C contract) {
+<span class="nc" id="L37">    this.contract = contract;</span>
+<span class="nc" id="L38">  }</span>
+
+  /**
+   * Returns the property associated with the listing.
+   *
+   * @return The property associated with the listing.
+   */
+  public P getProperty() {
+<span class="nc" id="L46">    return property;</span>
+  }
+
+  /**
+   * Sets the property associated with the listing.
+   *
+   * @param property The property to be associated with the listing.
+   */
+  public void setProperty(P property) {
+<span class="nc" id="L55">    this.property = property;</span>
+<span class="nc" id="L56">  }</span>
+
+  /**
+   * Compares this listing to another object for equality.
+   * Two listings are considered equal if their contracts and properties are equal.
+   *
+   * @param o The object to be compared with this listing.
+   * @return True if the given object is equal to this listing, false otherwise.
+   */
+  @Override
+  public boolean equals(Object o) {
+<span class="nc bnc" id="L67" title="All 2 branches missed.">    if (this == o) {</span>
+<span class="nc" id="L68">      return true;</span>
+    }
+<span class="nc bnc" id="L70" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="nc" id="L71">      return false;</span>
+    }
+<span class="nc" id="L73">    Listing listing = (Listing) o;</span>
+<span class="nc bnc" id="L74" title="All 4 branches missed.">    return Objects.equals(property, listing.property) &amp;&amp; Objects.equals(contract,</span>
+        listing.contract);
+  }
+
+  /**
+   * Returns a hash code value for this listing.
+   *
+   * @return The hash code value for this listing.
+   */
+  @Override
+  public int hashCode() {
+<span class="nc" id="L85">    return Objects.hash(property, contract);</span>
+  }
+
+  /**
+   * Returns a string representation of this listing.
+   *
+   * @return A string representation of this listing.
+   */
+  @Override
+  public String toString() {
+<span class="nc" id="L95">    return &quot;Listing{&quot; +</span>
+        &quot;contract=&quot; + contract +
+        &quot;, property=&quot; + property +
+        '}';
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
